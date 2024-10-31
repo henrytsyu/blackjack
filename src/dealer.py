@@ -29,7 +29,11 @@ class Dealer:
 
         if not player_hand.busted():
             self.__dealer_draw_until_min_stand(dealer_hand)
-        self.__player.notify_game_result(Dealer.__game_result(player_hand, dealer_hand))
+        self.__player.notify_game_result(
+            Dealer.__game_result(player_hand, dealer_hand),
+            player_hand.evaluate(),
+            dealer_hand.evaluate(),
+        )
 
     def __dealer_draw_until_min_stand(self, dealer_hand: DealerHand) -> None:
         # Draw until hard 17

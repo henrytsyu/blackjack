@@ -13,5 +13,7 @@ class Player(ABC):
         pass
 
     @abstractmethod
-    def notify_game_result(self, result: GameResults) -> None:
+    def notify_game_result(
+        self, result: GameResults, player_value: int, dealer_value: int
+    ) -> None:
         pass
