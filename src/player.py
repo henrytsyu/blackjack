@@ -1,25 +1,17 @@
+from abc import ABC, abstractmethod
+from enum import Enum
 from hand import Hand
-from shoe import Shoe
 
 
-class Player:
+class Player(ABC):
 
-    def __init__(self, shoe: Shoe):
-        self.hand = Hand()
-        self.shoe = shoe
-        self.reset()
+    Actions = Enum("Actions", ["HIT", "STAND"])
+    GameResults = Enum("GameResults", ["WIN", "LOSE", "PUSH"])
 
-    def reset(self) -> None:
-        self.hand = Hand()
-        # Players are dealt 2 cards at the start of each game
-        self.hit()
-        self.hit()
+    @abstractmethod
+    def pick_action(self, player_hand: Hand, dealer_revealed_card: int) -> Actions:
+        pass
 
-    def hit(self) -> None:
-        self.hand.add(self.shoe.deal())
-
-    def busted(self) -> bool:
-        return self.hand.busted()
-
-    def evaluate(self) -> int:
-        return self.hand.evaluate()
+    @abstractmethod
+    def notify_game_result(self, result: GameResults) -> None:
+        pass
